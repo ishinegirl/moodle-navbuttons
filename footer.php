@@ -179,9 +179,10 @@ function draw_navbuttons() {
         $home = new stdClass;
         if ($settings->homebuttontype == BLOCK_NAVBUTTONS_HOME_COURSE) {
             //Modified JUSTIN 2017/07/06
-            //$home->link = new moodle_url('/course/view.php', array('id' => $COURSE->id));
-			$home->link = new moodle_url('/course/view.php', array('id' => $COURSE->id),'section-' . $sectionnumber);            
-            $home->name = get_string('coursepage', 'block_navbuttons');
+            $home->link = new moodle_url('/course/view.php', array('id' => $COURSE->id));
+	    //$home->link = new moodle_url('/course/view.php', array('id' => $COURSE->id),'section-' . $sectionnumber);            
+            
+	    $home->name = get_string('coursepage', 'block_navbuttons');
         } else {
             $home->link = $CFG->wwwroot;
             //JUSTIN 2017/07/06 changed strong to gotop
@@ -354,7 +355,7 @@ function make_navbutton($imgsrc, $bgcolour, $title, $url, $classes = null, $neww
             }
         }
 
-        $output = html_writer::tag('form', $output, array('action' => $url, 'method' => 'get', 'class' => $formclass));
+        $output = html_writer::tag('form', $output, array('action' => $url, 'method' => 'post', 'class' => $formclass));
     }
     return $output;
 }
