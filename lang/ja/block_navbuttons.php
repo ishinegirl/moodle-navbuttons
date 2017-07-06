@@ -16,11 +16,11 @@
 
 
 
-$string['coursepage'] = 'モジュール一覧';
-$string['gotop'] = 'モジュール一覧';
-$string['gofirstcourse'] = '最初';
-$string['gofirstsection'] = '最初';
-$string['prevactivity'] = '前';
-$string['nextactivity'] = '次';
-$string['golastcourse'] = '最後';
-$string['golastsection'] = '最後';
+$string['coursepage'] = '⬆︎　モジュール一覧';
+$string['gotop'] = '<i class="⬆︎　モジュール一覧';
+$string['gofirstcourse'] = '◀︎　最初';
+$string['gofirstsection'] = '◀︎　最初';
+$string['prevactivity'] = '◀︎　前';
+$string['nextactivity'] = '次　▶';
+$string['golastcourse'] = '最後　▶';
+$string['golastsection'] = '最後　▶';
