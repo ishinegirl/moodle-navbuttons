@@ -75,6 +75,10 @@ function draw_navbuttons() {
     /** @var object|null $lastsection */
     $lastsection = null;
 
+	//ADD JUSTIN 2017/07/06
+	//the section number of the current mod
+	$sectionnumber=0;
+
     $sectionnum = -1;
     $thissection = null;
     $firstthissection = null;
@@ -139,6 +143,7 @@ function draw_navbuttons() {
             $flag = false;
         }
         if ($cmid == $mod->id) {
+        	$sectionnumber=$mod->sectionnum;
             $flag = true;
             $sectionflag = true;
             $prev = $previousmod;
@@ -173,15 +178,19 @@ function draw_navbuttons() {
     if ($settings->homebuttonshow) {
         $home = new stdClass;
         if ($settings->homebuttontype == BLOCK_NAVBUTTONS_HOME_COURSE) {
-            $home->link = new moodle_url('/course/view.php', array('id' => $COURSE->id));
+            //Modified JUSTIN 2017/07/06
+            //$home->link = new moodle_url('/course/view.php', array('id' => $COURSE->id));
+			$home->link = new moodle_url('/course/view.php', array('id' => $COURSE->id),'section-' . $sectionnumber);            
             $home->name = get_string('coursepage', 'block_navbuttons');
         } else {
             $home->link = $CFG->wwwroot;
-            $home->name = get_string('frontpage', 'block_navbuttons');
+            //JUSTIN 2017/07/06 changed strong to gotop
+            $home->name = get_string('gotop', 'block_navbuttons');
         }
         list($icon, $bgcolour) = navbutton_get_icon($settings->buttonstype, 'home', $context, BLOCK_NAVBUTTONS_HOMEICON,
                                                     $settings->backgroundcolour, $settings->customusebackground);
-        $output .= make_navbutton($icon, $bgcolour, $home->name, $home->link, "home");
+		//JUSTIN 2017/07/06 changed class to navbuttons_home
+        $output .= make_navbutton($icon, $bgcolour, $home->name, $home->link, "navbuttons_home");
     }
 
     if ($settings->firstbuttonshow) {
@@ -190,39 +199,43 @@ function draw_navbuttons() {
             if (!$firstcourse) {
                 $first = false;
             } else {
-                $first->name = get_string('firstcourse', 'block_navbuttons').': '.$firstcourse->name;
+            	 //JUSTIN 2017/07/06 changed strong to gofirstcourse
+                $first->name = get_string('gofirstcourse', 'block_navbuttons');//.': '.$firstcourse->name;
                 $first->link = $firstcourse->link;
             }
         } else if ($settings->firstbuttontype == BLOCK_NAVBUTTONS_FIRST_IN_SECTION) {
             if (!$firstsection) {
                 $first = false;
             } else {
-                $first->name = get_string('firstsection', 'block_navbuttons').': '.$firstsection->name;
+            	//JUSTIN 2017/07/06 changed strong to gofirstsection
+                $first->name = get_string('gofirstsection', 'block_navbuttons');//.': '.$firstsection->name;
                 $first->link = $firstsection->link;
             }
         } else {
             $first->name = get_string('coursepage', 'block_navbuttons');
-            $first->link = new moodle_url('/course/view.php', array('id' => $COURSE->id));
+            //Modified JUSTIN 2017/07/06
+			$first->link = new moodle_url('/course/view.php', array('id' => $COURSE->id),'section-' . $thissection); 
+            ///$first->link = new moodle_url('/course/view.php', array('id' => $COURSE->id),);
         }
         if ($first) {
             list($icon, $bgcolour) = navbutton_get_icon($settings->buttonstype, 'first', $context, BLOCK_NAVBUTTONS_FIRSTICON,
                                                         $settings->backgroundcolour, $settings->customusebackground);
-            $output .= make_navbutton($icon, $bgcolour, $first->name, $first->link, "first");
+            $output .= make_navbutton($icon, $bgcolour, $first->name, $first->link, "navbuttons_first");
         }
     }
 
     if ($settings->prevbuttonshow && $prev) {
         list($icon, $bgcolour) = navbutton_get_icon($settings->buttonstype, 'prev', $context, BLOCK_NAVBUTTONS_PREVICON,
                                                     $settings->backgroundcolour, $settings->customusebackground);
-        $output .= make_navbutton($icon, $bgcolour, get_string('prevactivity', 'block_navbuttons').': '.$prev->name,
-                                  $prev->link, "prev");
+        $output .= make_navbutton($icon, $bgcolour, get_string('prevactivity', 'block_navbuttons'),
+                                  $prev->link, "navbuttons_previous");
     }
 
     if ($settings->nextbuttonshow && $next) {
         list($icon, $bgcolour) = navbutton_get_icon($settings->buttonstype, 'next', $context, BLOCK_NAVBUTTONS_NEXTICON,
                                                     $settings->backgroundcolour, $settings->customusebackground);
-        $output .= make_navbutton($icon, $bgcolour, get_string('nextactivity', 'block_navbuttons').': '.$next->name,
-                                  $next->link, "next");
+        $output .= make_navbutton($icon, $bgcolour, get_string('nextactivity', 'block_navbuttons'),
+                                  $next->link, "navbuttons_next");
     }
 
     if ($settings->lastbuttonshow) {
@@ -231,14 +244,14 @@ function draw_navbuttons() {
             if (!$lastcourse) {
                 $last = false;
             } else {
-                $last->name = get_string('lastcourse', 'block_navbuttons').': '.$lastcourse->name;
+                $last->name = get_string('golastcourse', 'block_navbuttons');//.': '.$lastcourse->name;
                 $last->link = $lastcourse->link;
             }
         } else if ($settings->lastbuttontype == BLOCK_NAVBUTTONS_LAST_IN_SECTION) {
             if (!$lastsection) {
                 $last = false;
             } else {
-                $last->name = get_string('lastsection', 'block_navbuttons').': '.$lastsection->name;
+                $last->name = get_string('golastsection', 'block_navbuttons');//.': '.$lastsection->name;
                 $last->link = $lastsection->link;
             }
         } else {
@@ -248,7 +261,7 @@ function draw_navbuttons() {
         if ($last) {
             list($icon, $bgcolour) = navbutton_get_icon($settings->buttonstype, 'last', $context, BLOCK_NAVBUTTONS_LASTICON,
                                                         $settings->backgroundcolour, $settings->customusebackground);
-            $output .= make_navbutton($icon, $bgcolour, $last->name, $last->link, "last");
+            $output .= make_navbutton($icon, $bgcolour, $last->name, $last->link, "navbuttons_last");
         }
     }
 
@@ -259,7 +272,7 @@ function draw_navbuttons() {
             $settings->extra1title = $settings->extra1link;
         }
         $output .= make_navbutton($icon, $bgcolour, $settings->extra1title, $settings->extra1link,
-                                  "extra1", $settings->extra1openin);
+                                  "navbuttons_extra1", $settings->extra1openin);
     }
 
     if ($settings->extra2show && $settings->extra2link) {
@@ -269,7 +282,7 @@ function draw_navbuttons() {
             $settings->extra2title = $settings->extra2link;
         }
         $output .= make_navbutton($icon, $bgcolour, $settings->extra2title, $settings->extra2link,
-                                  "extra2", $settings->extra2openin);
+                                  "navbuttons_extra2", $settings->extra2openin);
     }
 
     $output .= make_activitycomplete_button($settings);

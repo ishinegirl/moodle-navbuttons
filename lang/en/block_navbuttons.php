@@ -55,14 +55,23 @@ $string['lastsection'] = 'Last activity in section';
 $string['navbuttons'] = 'Navigation Buttons';
 $string['navbuttons:addinstance'] = 'Add Navbuttons block to My Moodle page';
 $string['navbuttons:myaddinstance'] = 'Add new Navbuttons block';
-$string['nextactivity'] = 'Next activity';
 $string['nextbutton'] = 'Next button';
 $string['pluginname'] = 'Navigation Buttons';
-$string['prevactivity'] = 'Previous activity';
 $string['prevbutton'] = 'Previous button';
 $string['selftest_nofooter'] = 'Navbutton self-test: The line "$output = draw_navbuttons().$this->container_end_all(true);" has not been correctly added to outputrenderers.php - see README.txt for further instructions';
 $string['selftest_ok'] = 'Navbuttons self-test: required core modifications have been completed successfully';
 $string['settingsupdated'] = 'Settings updated';
 $string['typeicon'] = 'Icon';
 $string['typetext'] = 'Text';
+
+$string['coursepage'] = 'Course page';
+$string['gotop'] = 'Go Top';
+$string['gofirstcourse'] = 'Go First in Course';
+$string['gofirstsection'] = 'Go First in Section';
+$string['prevactivity'] = 'Previous activity';
+$string['nextactivity'] = 'Next activity';
+$string['gonext'] = 'Go Next';
+$string['golastcourse'] = 'Go Last in Course';
+$string['golastsection'] = 'Go Last in Section';
+
 
