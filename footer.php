@@ -339,7 +339,8 @@ function make_navbutton($imgsrc, $bgcolour, $title, $url, $classes = null, $neww
             $formclass .= " ".$classes;
         }
         // Generate a text button.
-        $output = html_writer::empty_tag('input', array('type' => 'submit', 'name' => 'navbutton', 'value' => $title));
+        $output = html_writer::empty_tag('input', 
+        	array('type' => 'submit', 'name' => 'navbutton', 'value' => $title, 'class'=>$classes . '_button'));
         $params = explode('?', $url, 2);
         if (count($params) > 1) {
             $params = str_replace('&amp;', '&', $params[1]);
